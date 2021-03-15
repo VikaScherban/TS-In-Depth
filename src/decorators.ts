@@ -137,3 +137,19 @@ export function positiveInteger(target: any, methodName: string, descriptor: Pro
 
     return descriptor;
 }
+
+export function logTime(target: Object, propertyName: string, descriptor: PropertyDescriptor) {
+    const originMethod = descriptor.value;
+
+    descriptor.value = function(...args) {
+        console.time(propertyName || 'LogTime');
+
+        const result = originMethod.apply(this, args);
+
+        console.timeEnd(propertyName || 'LogTime');
+
+        return result;
+    };
+
+    return descriptor;
+}

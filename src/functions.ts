@@ -185,9 +185,32 @@ export function getBooksByCategoryPromise(category: Category): Promise<string[]>
     });
 }
 
-export async function logSearchResults (category: Category): Promise<void> {
+export async function logSearchResults(category: Category): Promise<void> {
     const titles = await getBooksByCategoryPromise(category);
     console.log(titles);
 }
 
+export function promiseExample1(): Promise<number> {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('resolve 1');
+            resolve(1);
+        }, 2000);
+    });
+}
 
+export function promiseExample2(): Promise<number> {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('reject 2');
+            reject(2);
+        }, 1000);
+    });
+}
+
+export function promiseExample3(): Promise<number> {
+    return new Promise((resolve, reject) => {
+        console.log('resolve 3');
+        resolve(3);
+    });
+}

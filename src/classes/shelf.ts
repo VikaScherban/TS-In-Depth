@@ -1,4 +1,5 @@
 import { ShelfItem } from '../intefaces';
+import { logTime } from '../decorators';
 
 export default  class Shelf<T extends ShelfItem> {
     private items: T[] = [];
@@ -15,6 +16,7 @@ export default  class Shelf<T extends ShelfItem> {
         return this.items.find(item => item.title === title);
     }
 
+    @logTime
     printTitles(): void {
         this.items.forEach(item => console.log(item.title));
     }

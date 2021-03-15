@@ -1,7 +1,9 @@
 /* eslint-disable no-redeclare */
 
 import { Category } from './enums';
-import { logSearchResults } from './functions';
+import { logSearchResults, promiseExample1, promiseExample2, promiseExample3 } from './functions';
+import { Shelf } from './classes';
+import { Magazine } from './intefaces';
 
 showHello('greeting', 'TypeScript');
 
@@ -273,8 +275,35 @@ function showHello(divName: string, name: string) {
 
 
 // Task 09.03
-console.log('Start');
-logSearchResults(Category.JavaScript);
-logSearchResults(Category.Software)
-    .catch(err => console.log(err));
-console.log('Finish');
+// console.log('Start');
+// logSearchResults(Category.JavaScript);
+// logSearchResults(Category.Software)
+//     .catch(err => console.log(err));
+// console.log('Finish');
+
+// Home Tasks
+// Task 10.01
+// Создать три паралельных промиса и вывести их результаты, когда они все будут выполнены и/или отклонены.
+
+const a = promiseExample1();
+const b = promiseExample2();
+const c = promiseExample3();
+
+Promise.all([a, b, c]
+    .map(p => p.catch(x => console.error(x))))
+    .then(r => {
+        console.log(r);
+    });
+
+// Task 10.02
+// Создать декоратор logTime для метода printTitles в Shelf классе. В декораторе нужно вывести в консоль время работы метода. Вызвать printTitles.
+const magazines: Magazine[] = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+    { title: 'Five Points', publisher: 'GSU' }
+];
+
+const magazinesShelf = new Shelf<Magazine>();
+magazines.forEach(mag => magazinesShelf.add(mag));
+
+magazinesShelf.printTitles();
